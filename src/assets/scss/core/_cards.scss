@@ -89,7 +89,7 @@
   }
 
   @include media-breakpoint-up(lg) {
-    // On desktop, cards can have a resting elevation of 0dp and gain an elevation of 8dp on hover.
+    // On desktop, course can have a resting elevation of 0dp and gain an elevation of 8dp on hover.
     &.bmd-card-flat {
       box-shadow: none;
     }

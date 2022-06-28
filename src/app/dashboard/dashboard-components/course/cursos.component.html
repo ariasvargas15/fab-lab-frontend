@@ -1,6 +1,6 @@
 <!-- Cards -->
 <div>
-    <div *ngIf="isAuthenticated()" class="text-right" style="margin-bottom: 3%" data-target="#view" data-toggle="modal">
+    <div *ngIf="isAuthenticated()" class="text-right" style="margin-bottom: 3%" data-target="#view" data-toggle="modal" (click)="onAgregarClicked()">
         <button mat-button class="btn btn-info mt-4">
             Agregar
             <mat-icon>add</mat-icon>
@@ -49,26 +49,38 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                 aria-hidden="true">&times;</span></button>
                         <h4 class="mb-32">Agregar curso</h4>
-                        <form>
+                        <form #formAdd="ngForm" [formGroup]="formGroup" (ngSubmit)="onSubmit()" novalidate>
                             <mat-form-field class="w-100 fs-16" appearance="outline">
                                 <mat-label>Titulo</mat-label>
-                                <input matInput type="text">
+                                <input matInput type="text" formControlName="titulo" name="titulo">
+                                <mat-error *ngIf="formGroup.get('titulo')!.hasError('required')">
+                                    Campo obligatorio
+                                </mat-error>
                             </mat-form-field>
                             <mat-form-field class="w-100 fs-16" appearance="outline">
                                 <mat-label>Descripción</mat-label>
-                                <textarea matInput></textarea>
+                                <textarea matInput type="text" formControlName="descripcion" name="descripcion"></textarea>
                             </mat-form-field>
                             <mat-form-field class="w-100 fs-16" appearance="outline">
                                 <mat-label>Fecha (DD/MM/YYYY)</mat-label>
-                                <input matInput type="text">
+                                <input matInput type="text" formControlName="fecha" name="fecha">
+                                <mat-error *ngIf="formGroup.get('fecha')!.hasError('required')">
+                                    Campo obligatorio
+                                </mat-error>
                             </mat-form-field>
                             <mat-form-field class="w-100 fs-16" appearance="outline">
                                 <mat-label>Lugar</mat-label>
-                                <input matInput type="text">
+                                <input matInput type="text" formControlName="lugar" name="lugar">
+                                <mat-error *ngIf="formGroup.get('lugar')!.hasError('required')">
+                                    Campo obligatorio
+                                </mat-error>
                             </mat-form-field>
                             <mat-form-field class="w-100 fs-16" appearance="outline">
                                 <mat-label>Url inscripción</mat-label>
-                                <input matInput type="text">
+                                <input matInput type="text" formControlName="url" name="url">
+                                <mat-error *ngIf="formGroup.get('url')!.hasError('required')">
+                                    Campo obligatorio
+                                </mat-error>
                             </mat-form-field>
                             <div class="text-right">
                                 <button mat-button class="btn btn-info fw-normal" type="submit">Ok</button>

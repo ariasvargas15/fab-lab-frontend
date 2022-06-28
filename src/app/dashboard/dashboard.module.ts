@@ -5,8 +5,8 @@ import {DashboardComponent} from './dashboard.component';
 import {SalesComponent} from './dashboard-components/sales/sales.component';
 import {ActivityComponent} from './dashboard-components/activity/activity.component';
 import {ProductComponent} from './dashboard-components/product/product.component';
-import {CursosComponent} from './dashboard-components/cards/cursos.component';
-import {FormsModule} from '@angular/forms';
+import {CursosComponent} from './dashboard-components/course/cursos.component';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NgApexchartsModule} from 'ng-apexcharts';
 import {FeatherModule} from "angular-feather";
 
@@ -23,7 +23,8 @@ import {FeatherModule} from "angular-feather";
         DemoFlexyModule,
         FormsModule,
         NgApexchartsModule,
-        FeatherModule
+        FeatherModule,
+        ReactiveFormsModule
     ],
     exports: [
         DashboardComponent,

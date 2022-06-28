@@ -1,23 +1,21 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, Inject, OnInit, ViewChild} from '@angular/core';
 import {Curso} from "../../../model/curso";
 import {CursoService} from "../../../service/curso.service";
 import {DOCUMENT} from "@angular/common";
 import {TokenStorageService} from "../../../service/token-storage.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import * as $ from 'jquery';
+import {FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from "@angular/forms";
 
-interface cards {
-    image: string;
-    btn: string;
-    header: string;
-    description: string;
-}
+declare const $: any
 
 @Component({
     selector: 'app-cursos',
     templateUrl: './cursos.component.html',
 })
 export class CursosComponent implements OnInit {
+
+    @ViewChild('formAdd') ngAddForm: NgForm | undefined
+
 
     cursos: Curso[] = [
         {
@@ -54,13 +52,22 @@ export class CursosComponent implements OnInit {
         }
     ]
 
+    formGroup = new FormGroup({
+        titulo: new FormControl('', [Validators.required]),
+        descripcion: new FormControl(''),
+        fecha: new FormControl('', [Validators.required]),
+        lugar: new FormControl('', [Validators.required]),
+        url: new FormControl('', [Validators.required]),
+    })
+
     constructor(
         @Inject(DOCUMENT) private document: Document,
         private cursoService: CursoService,
         private tokenService: TokenStorageService,
-        private _snackbar: MatSnackBar
+        private _snackbar: MatSnackBar,
     ) {
     }
+
 
     ngOnInit(): void {
         $('#view').appendTo("body")
@@ -100,5 +107,18 @@ export class CursosComponent implements OnInit {
 
     isAuthenticated(): boolean {
         return this.tokenService.existToken()
+    }
+
+    onAgregarClicked() {
+        this.ngAddForm?.reset()
+        this.ngAddForm?.resetForm()
+    }
+
+    onSubmit() {
+        if (this.formGroup.valid) {
+            $('#view').modal('hide')
+            this.cursos.push(this.formGroup.value as Curso)
+            this.sortCursos()
+        }
     }
 }
