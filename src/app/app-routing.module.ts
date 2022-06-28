@@ -24,7 +24,7 @@ const routes: Routes = [
     {path: '', redirectTo: 'home', pathMatch: 'full',},
     {path: "login", component: LoginComponent},
     {
-        path: "",
+        path: '',
         component: FullComponent,
         children: [
             {path: "home", component: DashboardComponent},

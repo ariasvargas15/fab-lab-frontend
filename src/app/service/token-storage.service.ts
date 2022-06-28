@@ -8,9 +8,10 @@ export class TokenStorageService {
     constructor() {
     }
 
-    signOut(): void {
+    logout(): void {
         localStorage.clear()
         window.sessionStorage.clear()
+        window.location.reload()
     }
 
     public saveToken(token: string): void {
@@ -20,6 +21,10 @@ export class TokenStorageService {
 
     public getToken(): string | null {
         return sessionStorage.getItem(TOKEN_KEY)
+    }
+
+    public existToken(): boolean {
+        return this.getToken() != null
     }
 
     public saveUser(user: any): void {

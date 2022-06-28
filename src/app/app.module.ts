@@ -10,13 +10,14 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FullComponent} from './layouts/full/full.component';
 import {DemoFlexyModule} from './demo-flexy-module'
 
+
 // Modules
 import {DashboardModule} from './dashboard/dashboard.module';
 import {ComponentsModule} from './components/components.module';
 import {TokenStorageService} from "./service/token-storage.service";
-import {LoginComponent} from "./components/login/login.component";
 import {AuthService} from "./service/auth.service";
-import {HttpClient, HttpClientModule} from "@angular/common/http";
+import {HttpClientModule} from "@angular/common/http";
+import {CursoService} from "./service/curso.service";
 
 @NgModule({
     declarations: [
@@ -34,7 +35,7 @@ import {HttpClient, HttpClientModule} from "@angular/common/http";
         FormsModule,
         HttpClientModule
     ],
-    providers: [TokenStorageService, AuthService],
+    providers: [TokenStorageService, AuthService, CursoService],
     bootstrap: [AppComponent]
 })
 export class AppModule {

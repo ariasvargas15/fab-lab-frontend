@@ -10,13 +10,13 @@
                           (ngSubmit)="onSubmit()"
                           novalidate>
                         <mat-form-field class="w-100" appearance="outline">
-                            <mat-label>Documento</mat-label>
+                            <mat-label>Usuario</mat-label>
                             <input matInput
-                                   formControlName="document"
-                                   name="document"
+                                   formControlName="username"
+                                   name="username"
                                    [errorStateMatcher]="matcher"
                             />
-                            <mat-error *ngIf="formGroup.get('document')!.hasError('required')">
+                            <mat-error *ngIf="formGroup.get('username')!.hasError('required')">
                                 Campo obligatorio
                             </mat-error>
                         </mat-form-field>
@@ -39,7 +39,7 @@
                         </mat-form-field>
                         <div class="row justify-content-center">
                             <div class="form-group">
-                                <button type="submit" mat-raised-button class="btn btn-danger btn-block">
+                                <button type="submit" mat-raised-button class="btn btn-info btn-block">
                                     Iniciar
                                 </button>
                             </div>

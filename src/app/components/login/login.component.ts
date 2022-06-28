@@ -4,7 +4,7 @@ import {FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from '@a
 import {ErrorStateMatcher} from '@angular/material/core'
 import {TokenStorageService} from "../../service/token-storage.service";
 import {AuthService} from "../../service/auth.service";
-import {Notifications} from "../../service/notification";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
     isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
     hide = true
 
     formGroup = new FormGroup({
-        document: new FormControl('', [
+        username: new FormControl('', [
             Validators.required
         ]),
         password: new FormControl('', [
@@ -36,7 +36,11 @@ export class LoginComponent implements OnInit {
         ])
     })
 
-    constructor(private authService: AuthService, private tokenStorage: TokenStorageService, private router: Router) {
+    constructor(
+        private authService: AuthService,
+        private tokenStorage: TokenStorageService,
+        private router: Router,
+        private _snackbar: MatSnackBar) {
     }
 
     ngOnInit(): void {
@@ -50,23 +54,24 @@ export class LoginComponent implements OnInit {
     onSubmit(): void {
         if (this.formGroup.valid) {
             console.log(this.formGroup.value)
-            this.authService.login(this.formGroup.value).subscribe(
-                data => {
-                    this.tokenStorage.saveToken(data.jwt)
-                    this.isLoginFailed = false
-                    this.isLoggedIn = true
-                    this.reloadPage()
-                },
-                err => {
-                    this.errorMessage = err.error
-                    Notifications.showNotification('Usuario o contraseña inválida', 'danger')
+            this.authService.login(this.formGroup.value).subscribe({
+                    next: value => {
+                        this.tokenStorage.saveToken(value.jwt)
+                        this.isLoginFailed = false
+                        this.isLoggedIn = true
+                        this.goToHome()
+                    },
+                    error: err => {
+                        this.errorMessage = err.error
+                        this._snackbar.open('Usuario o contraseña inválida', 'Cerrar');
+                    }
                 }
             )
         }
     }
 
-    reloadPage(): void {
-        window.location.reload()
+    goToHome(): void {
+        this.router.navigate(['/home']).then()
     }
 
 }

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
+import {TokenStorageService} from "../../service/token-storage.service";
 
 interface sidebarMenu {
   link: string;
@@ -12,7 +13,6 @@ interface sidebarMenu {
 @Component({
   selector: 'app-full',
   templateUrl: './full.component.html',
-  styleUrls: ['./full.component.scss']
 })
 export class FullComponent {
 
@@ -24,7 +24,7 @@ export class FullComponent {
       shareReplay()
     );
 
-  constructor(private breakpointObserver: BreakpointObserver) { }
+  constructor(private breakpointObserver: BreakpointObserver, private tokenService: TokenStorageService) { }
 
   routerActive: string = "activelink";
 
@@ -116,4 +116,11 @@ export class FullComponent {
     // },
   ]
 
+  logout() {
+    this.tokenService.logout()
+  }
+
+  isAuthenticated(): boolean {
+    return this.tokenService.existToken()
+  }
 }
