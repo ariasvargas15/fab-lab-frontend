@@ -60,6 +60,9 @@
                             <mat-form-field class="w-100 fs-16" appearance="outline">
                                 <mat-label>Descripción</mat-label>
                                 <textarea matInput type="text" formControlName="descripcion" name="descripcion"></textarea>
+                                <mat-error *ngIf="formGroup.get('descripcion')!.hasError('required')">
+                                    Campo obligatorio
+                                </mat-error>
                             </mat-form-field>
                             <mat-form-field class="w-100 fs-16" appearance="outline">
                                 <mat-label>Fecha (DD/MM/YYYY)</mat-label>

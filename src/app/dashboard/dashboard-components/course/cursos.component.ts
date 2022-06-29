@@ -54,7 +54,7 @@ export class CursosComponent implements OnInit {
 
     formGroup = new FormGroup({
         titulo: new FormControl('', [Validators.required]),
-        descripcion: new FormControl(''),
+        descripcion: new FormControl('', [Validators.required]),
         fecha: new FormControl('', [Validators.required]),
         lugar: new FormControl('', [Validators.required]),
         url: new FormControl('', [Validators.required]),
@@ -116,9 +116,17 @@ export class CursosComponent implements OnInit {
 
     onSubmit() {
         if (this.formGroup.valid) {
-            $('#view').modal('hide')
-            this.cursos.push(this.formGroup.value as Curso)
-            this.sortCursos()
+            this.cursoService.saveCurso(this.formGroup.value).subscribe({
+                next: value => {
+                    $('#view').modal('hide')
+                    this.cursos.push(this.formGroup.value as Curso)
+                    this.sortCursos()
+                    this._snackbar.open(value.mensaje, "Ok")
+                },
+                error: err => {
+                    this._snackbar.open(err.mensaje, "Ok")
+                }
+            })
         }
     }
 }

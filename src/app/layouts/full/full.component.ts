@@ -42,7 +42,7 @@ export class FullComponent {
     {
       link: "/forms",
       icon: "layout",
-      menu: "Registrarse a un curso",
+      menu: "Proyectos",
     },
     // {
     //   link: "/alerts",
