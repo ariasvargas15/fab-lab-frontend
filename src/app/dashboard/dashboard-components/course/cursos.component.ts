@@ -4,7 +4,7 @@ import {CursoService} from "../../../service/curso.service";
 import {DOCUMENT} from "@angular/common";
 import {TokenStorageService} from "../../../service/token-storage.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from "@angular/forms";
+import {FormControl, FormGroup, NgForm, Validators} from "@angular/forms";
 
 declare const $: any
 
@@ -16,41 +16,7 @@ export class CursosComponent implements OnInit {
 
     @ViewChild('formAdd') ngAddForm: NgForm | undefined
 
-
-    cursos: Curso[] = [
-        {
-            id: 1,
-            titulo: "Angular",
-            url: "www.google.com ",
-            descripcion: "Esto es un curso",
-            fecha: "24/11/2022",
-            lugar: "UFPS"
-        },
-        {
-            id: 2,
-            titulo: "Angular 2",
-            url: "www.fcebook.com ",
-            descripcion: "Esto es un curso",
-            fecha: "24/12/2021",
-            lugar: "UFPS"
-        },
-        {
-            id: 3,
-            titulo: "Angular 3",
-            url: "www.twitter.com ",
-            descripcion: "Esto es un curso",
-            fecha: "24/12/2022",
-            lugar: "UFPS"
-        },
-        {
-            id: 3,
-            titulo: "Angular 3",
-            url: "www.twitter.com ",
-            descripcion: "Esto es un curso",
-            fecha: "23/12/2022",
-            lugar: "Universidad Francisco de Paula Santander"
-        }
-    ]
+    cursos: Curso[] = []
 
     formGroup = new FormGroup({
         titulo: new FormControl('', [Validators.required]),
@@ -70,7 +36,7 @@ export class CursosComponent implements OnInit {
 
 
     ngOnInit(): void {
-        $('#view').appendTo("body")
+        $('#curso').appendTo("body")
         this.getCursos()
         this.sortCursos()
     }
@@ -118,7 +84,7 @@ export class CursosComponent implements OnInit {
         if (this.formGroup.valid) {
             this.cursoService.saveCurso(this.formGroup.value).subscribe({
                 next: value => {
-                    $('#view').modal('hide')
+                    $('#curso').modal('hide')
                     this.cursos.push(this.formGroup.value as Curso)
                     this.sortCursos()
                     this._snackbar.open(value.mensaje, "Ok")
@@ -128,5 +94,20 @@ export class CursosComponent implements OnInit {
                 }
             })
         }
+    }
+
+    deleteCurso(id: number) {
+        this.cursoService.deleteCurso(id).subscribe({
+            next: _ => {
+                this.cursos.forEach((item, index) => {
+                    if (item.id === id) this.cursos.splice(index, 1);
+                })
+                this.sortCursos()
+                this._snackbar.open('Curso eliminado correctamente', "Ok")
+            },
+            error: err => {
+                this._snackbar.open(err.mensaje, "Ok")
+            }
+        })
     }
 }

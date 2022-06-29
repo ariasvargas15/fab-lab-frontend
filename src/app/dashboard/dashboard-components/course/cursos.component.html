@@ -1,6 +1,7 @@
 <!-- Cards -->
 <div>
-    <div *ngIf="isAuthenticated()" class="text-right" style="margin-bottom: 3%" data-target="#view" data-toggle="modal" (click)="onAgregarClicked()">
+    <div *ngIf="isAuthenticated()" class="text-right" style="margin-bottom: 3%" data-target="#curso" data-toggle="modal"
+         (click)="onAgregarClicked()">
         <button mat-button class="btn btn-info mt-4">
             Agregar
             <mat-icon>add</mat-icon>
@@ -28,7 +29,12 @@
                             <i-feather name="map-pin"></i-feather>
                             {{curso.lugar}}
                         </p>
-                        <div class="text-right">
+                        <div class="d-flex justify-content-end">
+                            <button *ngIf="isAuthenticated()" (click)="deleteCurso(curso.id)" mat-button
+                                    class="btn btn-info mt-4" style="margin-right: 5%">
+                                Eliminar
+                                <mat-icon>delete</mat-icon>
+                            </button>
                             <button (click)="goToUrl(curso.url)" mat-button
                                     class="btn btn-info mt-4">Inscribirme
                             </button>
@@ -40,7 +46,7 @@
     </div>
 </div>
 
-<div class="modal modal-angular fade" id="view" role="dialog" tabindex="-1"  aria-labelledby="myModalLabel">
+<div class="modal modal-angular fade" id="curso" role="dialog" tabindex="-1" aria-labelledby="myModalLabel">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-body">
@@ -59,7 +65,8 @@
                             </mat-form-field>
                             <mat-form-field class="w-100 fs-16" appearance="outline">
                                 <mat-label>Descripción</mat-label>
-                                <textarea matInput type="text" formControlName="descripcion" name="descripcion"></textarea>
+                                <textarea matInput type="text" formControlName="descripcion"
+                                          name="descripcion"></textarea>
                                 <mat-error *ngIf="formGroup.get('descripcion')!.hasError('required')">
                                     Campo obligatorio
                                 </mat-error>

@@ -18,6 +18,7 @@ import {TokenStorageService} from "./service/token-storage.service";
 import {AuthService} from "./service/auth.service";
 import {HttpClientModule} from "@angular/common/http";
 import {CursoService} from "./service/curso.service";
+import {ProyectoService} from "./service/proyecto.service";
 
 @NgModule({
     declarations: [
@@ -35,7 +36,7 @@ import {CursoService} from "./service/curso.service";
         FormsModule,
         HttpClientModule
     ],
-    providers: [TokenStorageService, AuthService, CursoService],
+    providers: [TokenStorageService, AuthService, CursoService, ProyectoService],
     bootstrap: [AppComponent]
 })
 export class AppModule {

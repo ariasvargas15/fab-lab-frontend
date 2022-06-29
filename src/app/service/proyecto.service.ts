@@ -2,8 +2,9 @@ import {Injectable} from '@angular/core'
 import {HttpClient, HttpHeaders} from '@angular/common/http'
 import {Observable} from 'rxjs'
 import {Curso} from "../model/curso";
+import {Proyecto} from "../model/proyecto";
 
-const AUTH_API = 'http://localhost:8080/curso'
+const AUTH_API = 'http://localhost:8080/proyecto'
 
 const httpOptions = {
     headers: new HttpHeaders(
@@ -19,26 +20,27 @@ const httpOptions = {
 @Injectable({
     providedIn: 'root'
 })
-export class CursoService {
+export class ProyectoService {
 
     constructor(private http: HttpClient) {
     }
 
-    getCursos(): Observable<Curso[]> {
-        return this.http.get<Curso[]>(AUTH_API, httpOptions)
+    getProyectos(): Observable<Proyecto[]> {
+        return this.http.get<Proyecto[]>(AUTH_API, httpOptions)
     }
 
-    saveCurso(curso: Curso): Observable<any> {
+    saveProyecto(proyecto: Proyecto): Observable<any> {
+        if (proyecto.estado == null) {
+            proyecto.estado = false
+        }
         return this.http.post(AUTH_API, {
-            titulo: curso.titulo,
-            descripcion: curso.descripcion,
-            fecha: curso.fecha,
-            lugar: curso.lugar,
-            url: curso.url
+            titulo: proyecto.titulo,
+            descripcion: proyecto.descripcion,
+            estado: proyecto.estado
         }, httpOptions)
     }
 
-    deleteCurso(id: number): Observable<any> {
+    deleteProyecto(id: number): Observable<any> {
         return this.http.delete(AUTH_API + '/' + id, httpOptions)
     }
 
