@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-forms',
-  templateUrl: './forms.component.html',
+  selector: 'app-proyecto',
+  templateUrl: './proyecto.component.html',
 })
-export class FormsComponent implements OnInit {
+export class ProyectoComponent implements OnInit {
   
   checked = true;
   

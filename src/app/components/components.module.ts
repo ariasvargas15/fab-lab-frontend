@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 import {AlertsComponent} from './alerts/alerts.component';
 import {FeatherModule} from 'angular-feather';
 import {allIcons} from 'angular-feather/icons';
-import {FormsComponent} from './forms/forms.component';
+import {ProyectoComponent} from './proyecto/proyecto.component';
 import {DemoFlexyModule} from '../demo-flexy-module';
 import {GridListComponent} from './grid-list/grid-list.component';
 import {MenuComponent} from './menu/menu.component';
@@ -29,7 +29,7 @@ import {MatIconModule} from "@angular/material/icon";
 @NgModule({
     declarations: [
         AlertsComponent,
-        FormsComponent,
+        ProyectoComponent,
         GridListComponent,
         MenuComponent,
         TabsComponent,
@@ -58,7 +58,7 @@ import {MatIconModule} from "@angular/material/icon";
     ],
     exports: [
         AlertsComponent,
-        FormsComponent,
+        ProyectoComponent,
         GridListComponent,
         MenuComponent,
         TabsComponent,
